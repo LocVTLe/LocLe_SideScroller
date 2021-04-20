@@ -69,6 +69,7 @@ namespace Platformer.Mechanics
 
             animator.SetBool("grounded", IsGrounded);
             animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
+            animator.SetFloat("velocityY", velocity.y);
 
             targetVelocity = move * maxSpeed;
         }

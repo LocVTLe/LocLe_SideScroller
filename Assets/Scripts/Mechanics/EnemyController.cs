@@ -15,6 +15,7 @@ namespace Platformer.Mechanics
         public PatrolPath path;
         public AudioClip ouch;
         public int enemyScore = 10;
+        public bool canJump = false;
 
         internal PatrolPath.Mover mover;
         internal AnimationController control;
@@ -30,6 +31,8 @@ namespace Platformer.Mechanics
             _collider = GetComponent<Collider2D>();
             _audio = GetComponent<AudioSource>();
             spriteRenderer = GetComponent<SpriteRenderer>();
+
+            if (canJump) StartCoroutine("Jump");
         }
 
         void OnCollisionEnter2D(Collision2D collision)
@@ -49,6 +52,27 @@ namespace Platformer.Mechanics
             {
                 if (mover == null) mover = path.CreateMover(control.maxSpeed * 0.5f);
                 control.move.x = Mathf.Clamp(mover.Position.x - transform.position.x, -1, 1);
+                spriteRenderer.flipX = control.move.x > 0;
+            }
+        }
+
+        IEnumerator Jump()
+        {
+            while(canJump)
+            {
+                if (control.velocity.y < -5)
+                {
+                    control.jump = false;
+                    control.stopJump = true;
+                    yield return new WaitForSeconds(2.5f);
+                } 
+                else if (control.velocity.y == 0)
+                {
+                    control.stopJump = false;
+                    control.jump = true;
+                }
+
+                 yield return new WaitForSeconds(0.1f);
             }
         }
 
