@@ -16,6 +16,7 @@ namespace Platformer.Mechanics
     {
         [Header("Audio")]
         public AudioClip jumpAudio;
+        public AudioClip interactAudio;
         public AudioClip respawnAudio;
         public AudioClip dieAudio;
         public AudioClip ouchAudio;
@@ -48,6 +49,7 @@ namespace Platformer.Mechanics
         private int score = 0;
         private int tokencount = 0;
 
+        bool isHaste = false;
         bool jump;
         Vector2 move;
         SpriteRenderer spriteRenderer;
@@ -110,6 +112,21 @@ namespace Platformer.Mechanics
         public int GetScore()
         {
             return this.score;
+        }
+
+        public int GetTokenCount()
+        {
+            return this.tokencount;
+        }
+
+        public void Hasten(bool flag)
+        {
+            isHaste = flag;
+        }
+
+        public bool Hasten()
+        {
+            return isHaste;
         }
 
         public void AddScore(int additonalScore)

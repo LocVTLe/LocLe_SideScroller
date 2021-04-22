@@ -20,8 +20,8 @@ public class Checkpoint : MonoBehaviour
         {
             if (spawnPoint != null) spawnPoint.transform.position = this.transform.position;
             if (dialog != null) dialog.SetActive(true);
-            if (player.audioSource && player.ouchAudio)
-                player.audioSource.PlayOneShot(player.ouchAudio);
+            if (player.audioSource && player.interactAudio)
+                player.audioSource.PlayOneShot(player.interactAudio);
         }
     }
 

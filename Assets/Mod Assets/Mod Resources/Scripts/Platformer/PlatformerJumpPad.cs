@@ -11,6 +11,10 @@ public class PlatformerJumpPad : MonoBehaviour
         if (rb == null) return;
         var player = rb.GetComponent<PlayerController>();
         if (player == null) return;
+
+        if (player.audioSource && player.interactAudio)
+            player.audioSource.PlayOneShot(player.interactAudio);
+
         AddVelocity(player);
     }
 

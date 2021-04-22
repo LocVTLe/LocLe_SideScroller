@@ -21,6 +21,6 @@ public class PlayerScore : MonoBehaviour
     void Update()
     {
         if (tmp != null && player != null)
-            tmp.SetText("Score: " + player.GetScore());
+            tmp.SetText("" + player.GetScore());
     }
 }

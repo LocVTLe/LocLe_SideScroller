@@ -8,7 +8,6 @@ public class PlatformerSpeedPad : MonoBehaviour
 
     [Range (0, 5)]
     public float duration = 1f;
-    private bool isActivated = false;
 
     void OnTriggerEnter2D(Collider2D other){
         var rb = other.attachedRigidbody;
@@ -16,12 +15,13 @@ public class PlatformerSpeedPad : MonoBehaviour
         var player = rb.GetComponent<PlayerController>();
         if (player == null) return;
 
-        if (isActivated == false)
+        if (player.audioSource && player.interactAudio)
+            player.audioSource.PlayOneShot(player.interactAudio);
+
+        if (!player.Hasten())
         {
-            isActivated = true;
-
-            if (player.trailPrefab != null) player.trailPrefab.SetActive(isActivated);
-
+            player.Hasten(true);
+            if (player.trailPrefab != null) player.trailPrefab.SetActive(true);
             player.StartCoroutine(PlayerModifier(player, duration));
         }
     }
@@ -48,7 +48,7 @@ public class PlatformerSpeedPad : MonoBehaviour
 
         player.maxSpeed = player.GetOriginalSpeed();
 
-        isActivated = false;
+        player.Hasten(false);
         if (player.trailPrefab != null)
         {
             player.trailPrefab.SetActive(false);
