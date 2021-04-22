@@ -20,6 +20,7 @@ namespace Platformer.Gameplay
         {
             AudioSource.PlayClipAtPoint(token.tokenCollectAudio, token.transform.position);
             player.AddScore(token.tokenScore);
+            player.AddToken(1);
         }
     }
 }

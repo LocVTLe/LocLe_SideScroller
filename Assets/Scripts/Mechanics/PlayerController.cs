@@ -117,6 +117,11 @@ namespace Platformer.Mechanics
             this.score += additonalScore;
         }
 
+        public void AddToken(int additonalToken)
+        {
+            this.tokencount += additonalToken;
+        }
+
         void UpdateJumpState()
         {
             jump = false;
