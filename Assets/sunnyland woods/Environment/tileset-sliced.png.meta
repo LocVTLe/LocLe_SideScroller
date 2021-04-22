@@ -674,6 +674,9 @@ TextureImporter:
   - first:
       213: 21300446
     second: tileset-sliced_223
+  - first:
+      213: -1932940403750856222
+    second: tileset-sliced_224
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
