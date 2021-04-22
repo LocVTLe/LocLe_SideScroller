@@ -20,7 +20,7 @@ namespace Platformer.Mechanics
         /// </summary>
         public bool IsAlive => currentHP > 0;
 
-        int currentHP;
+        public int currentHP;
 
         /// <summary>
         /// Increment the HP of the entity.
@@ -42,6 +42,11 @@ namespace Platformer.Mechanics
                 var ev = Schedule<HealthIsZero>();
                 ev.health = this;
             }
+        }
+
+        public void Respawn()
+        {
+            currentHP = maxHP;
         }
 
         /// <summary>

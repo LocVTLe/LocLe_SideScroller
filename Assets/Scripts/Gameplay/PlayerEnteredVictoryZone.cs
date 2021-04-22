@@ -19,6 +19,8 @@ namespace Platformer.Gameplay
         {
             model.player.animator.SetTrigger("victory");
             model.player.controlEnabled = false;
+            if (model.player.audioSource && model.player.winAudio)
+                model.player.audioSource.PlayOneShot(model.player.winAudio);
         }
     }
 }

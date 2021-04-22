@@ -17,7 +17,9 @@ namespace Platformer.Mechanics
         [Header("Audio")]
         public AudioClip jumpAudio;
         public AudioClip respawnAudio;
+        public AudioClip dieAudio;
         public AudioClip ouchAudio;
+        public AudioClip winAudio;
 
         /// <summary>
         /// Max horizontal speed of the player.
@@ -44,6 +46,7 @@ namespace Platformer.Mechanics
         public bool controlEnabled = true;
 
         private int score = 0;
+        private int tokencount = 0;
 
         bool jump;
         Vector2 move;
@@ -91,7 +94,7 @@ namespace Platformer.Mechanics
                     Schedule<PlayerStopJump>().player = this;
                 }
             }
-            else
+            else 
             {
                 move.x = 0;
             }
@@ -169,6 +172,19 @@ namespace Platformer.Mechanics
             animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
 
             targetVelocity = move * maxSpeed;
+        }
+
+        public void recover()
+        {
+            Bounce(new Vector2(-9, 3));
+            StartCoroutine("Recover");
+        }
+
+        IEnumerator Recover()
+        {
+            yield return new WaitForSeconds(0.5f);
+            collider2d.enabled = true;
+            controlEnabled = true;
         }
 
         public enum JumpState

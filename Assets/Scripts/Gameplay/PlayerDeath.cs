@@ -17,19 +17,30 @@ namespace Platformer.Gameplay
         public override void Execute()
         {
             var player = model.player;
-            if (player.health.IsAlive)
+            if (player.health.currentHP == 0)
             {
                 player.health.Die();
                 model.virtualCamera.m_Follow = null;
                 model.virtualCamera.m_LookAt = null;
-                // player.collider.enabled = false;
+                player.collider2d.enabled = false;
                 player.controlEnabled = false;
 
-                if (player.audioSource && player.ouchAudio)
-                    player.audioSource.PlayOneShot(player.ouchAudio);
+                if (player.audioSource && player.dieAudio)
+                    player.audioSource.PlayOneShot(player.dieAudio);
                 player.animator.SetTrigger("hurt");
                 player.animator.SetBool("dead", true);
                 Simulation.Schedule<PlayerSpawn>(2);
+            }
+            else
+            {
+                if (player.audioSource && player.ouchAudio)
+                    player.audioSource.PlayOneShot(player.ouchAudio);
+                player.animator.SetTrigger("hurt");
+                player.health.Decrement();
+                player.collider2d.enabled = false;
+                player.controlEnabled = false;
+
+                player.recover();
             }
         }
     }

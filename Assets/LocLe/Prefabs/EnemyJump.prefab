@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: {fileID: 0}
-  ouch: {fileID: 8300000, guid: b7f741588644cd64bbee6387cb54a96d, type: 3}
+  ouch: {fileID: 8300000, guid: 1537f9f0ad70189489f31734d9b15a5f, type: 3}
   enemyScore: 10
   canJump: 1
 --- !u!82 &5843668731025413174
