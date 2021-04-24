@@ -19,9 +19,12 @@ public class EmitParticlesOnLand : MonoBehaviour
     {
         p = GetComponent<ParticleSystem>();
 
+        if (p == null) return;
+
         if (emitOnLand) {
             Platformer.Gameplay.PlayerLanded.OnExecute += PlayerLanded_OnExecute;
             void PlayerLanded_OnExecute(Platformer.Gameplay.PlayerLanded obj) {
+                if (p == null) return;
                 p.Play();
             }
         }
@@ -31,6 +34,7 @@ public class EmitParticlesOnLand : MonoBehaviour
             Platformer.Gameplay.EnemyHit.OnExecute += EnemyHit_OnExecute;
             void EnemyHit_OnExecute(Platformer.Gameplay.EnemyHit obj)
             {
+                if (p == null) return;
                 p.Play();
             }
         }
@@ -38,6 +42,7 @@ public class EmitParticlesOnLand : MonoBehaviour
         if (emitOnEnemyDeath) {
             Platformer.Gameplay.EnemyDeath.OnExecute += EnemyDeath_OnExecute;
             void EnemyDeath_OnExecute(Platformer.Gameplay.EnemyDeath obj) {
+                if (p == null) return;
                 p.Play();
             }
         }

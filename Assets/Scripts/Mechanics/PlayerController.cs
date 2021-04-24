@@ -134,9 +134,9 @@ namespace Platformer.Mechanics
         public void AddScore(int additonalScore)
         {
             score += additonalScore;
-            if (score % 100 == 0 && score > 0)
+            if (score % 500 == 0 && score > 0)
             {
-                health.currentHP++;
+                health.Increment();
                 if (audioSource && lifeAudio)
                     audioSource.PlayOneShot(model.player.lifeAudio);
             }
