@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Platformer.Gameplay;
 using static Platformer.Core.Simulation;
 using Platformer.Model;
@@ -17,6 +18,7 @@ namespace Platformer.Mechanics
         [Header("Audio")]
         public AudioClip jumpAudio;
         public AudioClip interactAudio;
+        public AudioClip lifeAudio;
         public AudioClip respawnAudio;
         public AudioClip dieAudio;
         public AudioClip ouchAudio;
@@ -131,12 +133,19 @@ namespace Platformer.Mechanics
 
         public void AddScore(int additonalScore)
         {
-            this.score += additonalScore;
+            score += additonalScore;
+            if (score % 100 == 0 && score > 0)
+            {
+                health.currentHP++;
+                if (audioSource && lifeAudio)
+                    audioSource.PlayOneShot(model.player.lifeAudio);
+            }
+
         }
 
         public void AddToken(int additonalToken)
         {
-            this.tokencount += additonalToken;
+            tokencount += additonalToken;
         }
 
         void UpdateJumpState()
@@ -201,12 +210,26 @@ namespace Platformer.Mechanics
             Bounce(new Vector2(-9, 3));
             StartCoroutine("Recover");
         }
-
         IEnumerator Recover()
         {
             yield return new WaitForSeconds(0.5f);
             collider2d.enabled = true;
             controlEnabled = true;
+        }
+
+        public void victory()
+        {
+            animator.SetTrigger("victory");
+            controlEnabled = false;
+            if (audioSource && winAudio)
+                audioSource.PlayOneShot(model.player.winAudio);
+            StartCoroutine("LoadNextLevel");
+        }
+
+        IEnumerator LoadNextLevel()
+        {
+            yield return new WaitForSeconds(6.5f);
+            SceneManager.LoadScene("StartScene");
         }
 
         public enum JumpState

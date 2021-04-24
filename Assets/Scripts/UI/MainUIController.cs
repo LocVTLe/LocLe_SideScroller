@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Platformer.Mechanics;
 
 namespace Platformer.UI
@@ -14,17 +15,27 @@ namespace Platformer.UI
 
         public void SetActivePanel(int index)
         {
-            for (var i = 0; i < panels.Length; i++)
+
+            switch (index)
+            {
+                case 0: SceneManager.LoadScene("MainScene"); break;
+                case 1: SceneManager.LoadScene("StartScene"); break;
+                case 2: Application.Quit(); break;
+                default: return;
+            }
+            /*
+            for (int i = 0; i < panels.Length; i++)
             {
                 var active = i == index;
                 var g = panels[i];
                 if (g.activeSelf != active) g.SetActive(active);
             }
+            */
         }
 
         void OnEnable()
         {
-            SetActivePanel(0);
+            panels[0].SetActive(true);
         }
 
     }
